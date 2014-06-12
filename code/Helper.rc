@@ -1,0 +1,237 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,0,0,0
+ PRODUCTVERSION 3,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "UVW Frame for 3d studio max"
+            VALUE "CompanyName", "Mankua"
+            VALUE "FileDescription", "Advanced UVW Editing for 3d studio max"
+            VALUE "FileVersion", "1.0"
+            VALUE "InternalName", "UVWFrame"
+            VALUE "LegalCopyright", "Copyright © 2001 Mankua"
+            VALUE "LegalTrademarks", "Mankua"
+            VALUE "OriginalFilename", "uvwframe.dlo"
+            VALUE "ProductName", "UVW Frame"
+            VALUE "ProductVersion", "1.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_UVW_FRAME DIALOGEX 0, 0, 108, 134
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_UVWF_LEN,"CustEdit",WS_TABSTOP,47,31,36,10
+    CONTROL         "",IDC_UVWF_WID,"CustEdit",WS_TABSTOP,47,42,36,10
+    CONTROL         "",IDC_UVWF_HEI,"CustEdit",WS_TABSTOP,47,53,36,10
+    CONTROL         "None",IDC_UVWF_PICKOBJ,"CustButton",WS_TABSTOP,11,82,84,13
+    PUSHBUTTON      "Save",IDC_UVWF_SAVE,9,113,43,14
+    CONTROL         "",IDC_UVWF_LEN_SPIN,"SpinnerControl",0x0,83,31,7,10
+    RTEXT           "Length:",IDC_STATIC,13,32,29,8
+    GROUPBOX        "Size",IDC_STATIC,3,23,102,45
+    CONTROL         "",IDC_UVWF_HEI_SPIN,"SpinnerControl",0x0,83,53,7,10
+    RTEXT           "Width:",IDC_STATIC,13,43,29,8
+    GROUPBOX        "Pick Unwrapped Object ",IDC_STATIC,3,70,102,32
+    GROUPBOX        "UVW Files",IDC_STATIC,3,103,102,29
+    CONTROL         "",IDC_UVWF_WID_SPIN,"SpinnerControl",0x0,83,42,7,10
+    RTEXT           "Height:",IDC_STATIC,13,54,29,8
+    PUSHBUTTON      "Load",IDC_UVWF_LOAD,55,113,43,14
+    CONTROL         "A",IDC_TL_ABOUT,"CustButton",WS_TABSTOP,88,5,15,14
+    CTEXT           "UVW Frame",IDC_TKU_ABOUT,6,8,62,8
+    GROUPBOX        "",IDC_STATIC,3,0,102,21
+    CONTROL         "A",IDC_TL_HELP,"CustButton",WS_TABSTOP,71,5,15,14
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 225, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About UVW Frame"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,4,0,217,59
+    LTEXT           "UVW Frame 1.0\nFebruary 6, 2009\n\nDeveloped by Diego A. Castaño\nAll Rights Reserved © 2001-2009\nMankua Software Inc.",IDC_STATIC,110,6,109,49
+    CONTROL         107,IDC_MANKUA,"Static",SS_BITMAP,8,6,97,49,WS_EX_CLIENTEDGE
+END
+
+IDD_UVW_FRAME_MOD DIALOGEX 0, 0, 108, 78
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_UVWCH_EDIT,"CustEdit",WS_TABSTOP,69,32,21,10
+    CONTROL         "",IDC_UVWCH_SPIN,"SpinnerControl",0x0,91,32,7,10
+    GROUPBOX        "UVW Frame Modifier",IDC_STATIC,4,22,100,52
+    CONTROL         "Pick UVW Frame",IDC_PICK_FRAME,"CustButton",WS_TABSTOP,11,56,85,14
+    CONTROL         "A",IDC_UVWF_ABOUT,"CustButton",WS_TABSTOP,86,5,15,14
+    CTEXT           "UVW Frame",IDC_STATIC,10,8,58,8
+    GROUPBOX        "",IDC_STATIC,4,0,100,21
+    CONTROL         "Map Channel",IDC_UVW_TYPE,"Button",BS_AUTORADIOBUTTON,9,32,58,10
+    CONTROL         "Vertex Color Channel",IDC_VCC_TYPE,"Button",BS_AUTORADIOBUTTON,9,44,82,10
+    CONTROL         "A",IDC_UVWF_HELP,"CustButton",WS_TABSTOP,69,5,15,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ABOUT               BITMAP                  "bmp16but.bmp"
+IDB_ABOUT_MASK          BITMAP                  "bmp00001.bmp"
+IDB_MANKUA_WHITE        BITMAP                  "logo_mankua_white_h76.bmp"
+IDB_MANKUA_BLACK        BITMAP                  "logo_mankua_black_h76.bmp"
+IDB_HELP_MASK           BITMAP                  "Help_Mask.bmp"
+IDB_HELP                BITMAP                  "Help.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 221
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 59
+    END
+
+    IDD_UVW_FRAME_MOD, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 104
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 74
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_CLASSNAME           "UVW Frame"
+    IDS_FRAME_PARAMETERS    "Parameters"
+    IDS_FRAMEMOD_CLASSNAME  "UVW Frame"
+    IDS_LIBDESC             "UVW Frame 1.0 By Diego Castaño - Mankua 2001 ( www.mankua.com )"
+    IDS_FRAMEMOD_PARAMETERS "Parameters"
+    IDS_NONE                "None"
+    IDS_IGNORE_CLASSNAME    "Ignore"
+    IDS_TLIG_FACES          "Select Faces"
+    IDS_UVWFRAME_CLASSNAME  "UVW Frame"
+    IDS_UVWFRAME_NONE       "Pick Mesh Node"
+    IDS_UVF_LEN             "Length"
+    IDS_UVF_WID             "Width"
+    IDS_UVF_HEI             "Height"
+    IDS_UVF_MESH            "UVW Mesh"
+    IDS_SIMPLE              "Simple"
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
