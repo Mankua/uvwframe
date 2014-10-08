@@ -4,7 +4,7 @@
  |			Helper object that derives Mapping coordinates from scene objects
  |			3D Studio MAX R3.0
  | 
- |  AUTH:   Diego Castaño
+ |  AUTH:   Diego CastaÃ±o
  |			Copyright(c) Mankua 2000
  |
  |  HIST:	Started 1-1-00
@@ -16,7 +16,7 @@
 
 #include "max.h"
 
-#ifndef MAX_RELEASE_R9
+#if MAX_VERSION_MAJOR < 9
 #include "max_mem.h"
 #endif
 
@@ -111,18 +111,31 @@ class UVWFrameObject: public HelperObject
 		// From ref
  		int NumRefs() { return 2; }
 		RefTargetHandle GetReference(int i);
+#if MAX_VERSION_MAJOR < 14
 		void SetReference(int i, RefTargetHandle rtarg);
-
-		TCHAR *GetObjectName() { return GetString(IDS_UVWFRAME_CLASSNAME); }
-
-#ifndef MAX_RELEASE_R9
-		RefTargetHandle Clone(RemapDir& remap = NoRemap());
 #else
-		RefTargetHandle Clone(RemapDir& remap = DefaultRemapDir());
+private:
+		virtual void SetReference(int i, RefTargetHandle rtarg);
+public:
 #endif
 
-		RefResult NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, 
-		   PartID& partID, RefMessage message );		
+#if MAX_VERSION_MAJOR < 15 //Max 2013
+		TCHAR *GetObjectName() { return GetString(IDS_UVWFRAME_CLASSNAME); }
+#else
+		const TCHAR *GetObjectName() { return GetString(IDS_UVWFRAME_CLASSNAME); }
+#endif
+
+#if MAX_VERSION_MAJOR < 9 
+		RefTargetHandle Clone(RemapDir &remap = NoRemap());
+#else
+		RefTargetHandle Clone(RemapDir &remap);
+#endif
+
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+		RefResult NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message );
+#else
+		RefResult NotifyRefChanged( const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate );
+#endif		
 		BOOL AddUVWMesh(INode *node);
 		void SetNodeName();
 		
