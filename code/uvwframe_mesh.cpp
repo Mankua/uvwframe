@@ -4,7 +4,7 @@
  |			Skeleton project and code for a Helper object
  |			3D Studio MAX R3.0
  | 
- |  AUTH:   Diego Andres Castaño Alt
+ |  AUTH:   Diego Andres CastaÃ±o Alt
  |			Copyright(c) Mankua 2000
  |
  |  HIST:	Started 20-12-99
@@ -329,15 +329,14 @@ ObjectState UVWFrameObject::Eval(TimeValue time)
 	return ObjectState(this);
 }
 
-#ifdef MAX_RELEASE>=4000
+#if MAX_VERSION_MAJOR < 4
 class UVW_TVFaceClass {
 	public:
-		int count;
-		int * t;
+		int t[4];
 		int FaceIndex;
 		int MatID;
 		int flags;
-		int * v;
+		Point3 pt[4];
 	};
 
 class UVW_TVVertClass {
@@ -349,11 +348,12 @@ class UVW_TVVertClass {
 #else
 class UVW_TVFaceClass {
 	public:
-		int t[4];
+		int count;
+		int * t;
 		int FaceIndex;
 		int MatID;
 		int flags;
-		Point3 pt[4];
+		int * v;
 	};
 
 class UVW_TVVertClass {
@@ -403,7 +403,11 @@ void UVWFrameObject::SaveUVW(HWND hWnd) {
 				}
 			}
 
+#if MAX_VERSION_MAJOR < 15
 	FILE *file = fopen(fname,_T("wb"));
+#else
+	FILE *file = _tfopen(fname,_T("wb"));
+#endif
 
 	TimeValue t = ip->GetTime();
 	Interval iv = FOREVER;
@@ -523,7 +527,11 @@ void UVWFrameObject::LoadUVW(HWND hWnd) {
 
 	BOOL is_poly = FALSE;
 
+#if MAX_VERSION_MAJOR < 15
 	FILE *file = fopen(fname,_T("rb"));
+#else
+	FILE *file = _tfopen(fname,_T("rb"));
+#endif
 
 	int ver;
 	fread(&ver,sizeof(ver),1,file);
