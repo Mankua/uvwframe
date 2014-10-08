@@ -5,7 +5,7 @@
  |			the UVW Frame helper object
  |			3D Studio MAX R3.0
  | 
- |  AUTH:   Diego A. Castaño
+ |  AUTH:   Diego A. CastaÃ±o
  |			Mankua
  |			Copyright(c) Mankua 2001
  |
@@ -14,7 +14,7 @@
 \*===========================================================================*/
 
 #include "frame_mod.h"
-#include "..\..\UVWFrame\code\uvwframe.h"
+#include "uvwframe.h"
 
 /*===========================================================================*\
  |	ModifyObject will do all the work in a full modifier
@@ -79,7 +79,7 @@ void UVWFrameModifier::ModifyObject(TimeValue t, ModContext &mc, ObjectState *os
 
 			for ( int i_f=0; i_f<uvw_faces.Count(); i_f++ ) {
 				if ( pobj->GetMesh().f[i_f].deg != uvw_faces[i_f].deg ) {
-					MessageBox(GetCOREInterface()->GetMAXHWnd(),"Poly Objects Mismatch","REMOVE",MB_OK);
+					MessageBox(GetCOREInterface()->GetMAXHWnd(),_T("Poly Objects Mismatch"),_T("REMOVE"),MB_OK);
 					return;
 					}
 				}
