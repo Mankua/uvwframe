@@ -19,7 +19,7 @@
 
 IObjParam*			UVWFrameObject::ip				= NULL;
 
-#define UVWFRAME_LABEL	"U V W   F r a m e"
+#define UVWFRAME_LABEL	_T("U V W   F r a m e")
 
 /*===========================================================================*\
  |	Class Descriptor
@@ -117,7 +117,7 @@ INT_PTR UVWFrameDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT m
 
 			iTmp = GetICustButton(GetDlgItem(hWnd,IDC_TL_HELP));
 			iTmp->SetImage(hHelpImage, 0, 0, 0, 0, 16, 16);
-			iTmp->SetTooltip(TRUE,_T("About UVW Frame"));
+			iTmp->SetTooltip(TRUE,_T("UVW Frame Help"));
 
 			ReleaseICustButton(iTmp);
 		break;
@@ -133,7 +133,7 @@ INT_PTR UVWFrameDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT m
 				break;
 
 				case IDC_TL_HELP:
-					ShellExecute(NULL, "open", "http://www.mankua.com/uvwframe.php", NULL, NULL, SW_SHOWNORMAL);
+					ShellExecute(NULL, _T("open"), _T("http://www.mankua.com/uvwframe.php"), NULL, NULL, SW_SHOWNORMAL);
 				break;
 
 				case IDC_UVWF_SAVE:
@@ -179,6 +179,9 @@ public:
 };
 static MeshPBAccessor mesh_accessor;
 
+#if MAX_VERSION_MAJOR < 15 // Max2013
+ #define p_end end
+#endif
 
 static ParamBlockDesc2 shelp_param_blk ( shelp_params, _T("UVWFrameParams"),  0, &UVWFrameCD, P_AUTO_CONSTRUCT + P_AUTO_UI, 0, 
 	//rollout
@@ -193,28 +196,28 @@ static ParamBlockDesc2 shelp_param_blk ( shelp_params, _T("UVWFrameParams"),  0,
 		p_default,		0.0f,
 		p_range, 		0.0f, 65535.0f, 
 		p_ui,			TYPE_SPINNER, EDITTYPE_UNIVERSE, IDC_UVWF_LEN, IDC_UVWF_LEN_SPIN, 0.1f,
-		end,
+		p_end,
 
 	pb_width,			_T("pb_width"),	TYPE_FLOAT,	P_ANIMATABLE,	IDS_UVF_WID,
 		p_default,		0.0f,
 		p_range, 		0.0f, 65535.0f, 
 		p_ui,			TYPE_SPINNER, EDITTYPE_UNIVERSE, IDC_UVWF_WID, IDC_UVWF_WID_SPIN, 0.1f,
-		end,
+		p_end,
 
 	pb_height,			_T("pb_height"),TYPE_FLOAT,	P_ANIMATABLE,	IDS_UVF_HEI,
 		p_default,		0.0f,
 		p_range, 		0.0f, 65535.0f, 
 		p_ui,			TYPE_SPINNER, EDITTYPE_UNIVERSE, IDC_UVWF_HEI, IDC_UVWF_HEI_SPIN, 0.1f,
-		end,
+		p_end,
 
 	pb_uvwmesh, 		_T("pb_uvwmesh"), 	TYPE_INODE, 	P_OWNERS_REF + P_NO_AUTO_LABELS,	IDS_UVF_MESH,
 		p_ui, 			TYPE_PICKNODEBUTTON, IDC_UVWF_PICKOBJ, 
 		p_sclassID,		GEOMOBJECT_CLASS_ID, 
 		p_refno,		UVW_MESH_REF,
 		p_accessor,		&mesh_accessor,
-		end, 
+		p_end, 
 
-	end
+	p_end
 	);
 
 
@@ -316,6 +319,7 @@ RefTargetHandle UVWFrameObject::GetReference(int i)
 		default: return NULL;
 		}
 	}
+
 void UVWFrameObject::SetReference(int i, RefTargetHandle rtarg)
 	{
 	switch (i) {
@@ -327,9 +331,14 @@ void UVWFrameObject::SetReference(int i, RefTargetHandle rtarg)
 			break;
 		}
 	}
-RefResult UVWFrameObject::NotifyRefChanged(
-		Interval changeInt, RefTargetHandle hTarget,
-		PartID& partID,  RefMessage message) 
+
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+RefResult UVWFrameObject::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+   PartID& partID, RefMessage message ) 
+#else
+RefResult UVWFrameObject::NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget, 
+   PartID& partID, RefMessage message, BOOL propagate ) 
+#endif
 	{
 	switch (message) {
 		case REFMSG_CHANGE:
