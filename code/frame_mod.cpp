@@ -5,7 +5,7 @@
  |			the UVW Frame helper object
  |			3D Studio MAX R3.0
  | 
- |  AUTH:   Diego A. Castaño
+ |  AUTH:   Diego A. CastaÃ±o
  |			Mankua
  |			Copyright(c) Mankua 2001
  |
@@ -122,7 +122,7 @@ INT_PTR SkeletonPureModDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd,
 				break;
 
 				case IDC_UVWF_HELP:
-					ShellExecute(NULL, "open", "http://www.mankua.com/uvwframe.php", NULL, NULL, SW_SHOWNORMAL);
+					ShellExecute(NULL, _T("open"), _T("http://www.mankua.com/uvwframe.php"), NULL, NULL, SW_SHOWNORMAL);
 				break;
 			}
 			break;
@@ -135,6 +135,10 @@ INT_PTR SkeletonPureModDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd,
  |	Paramblock2 Descriptor
 \*===========================================================================*/
 
+#if MAX_VERSION_MAJOR < 15 // Max2013
+ #define p_end end
+#endif
+
 static ParamBlockDesc2 skpurem_param_blk ( frame_mod_params, _T("SkeletonPureModParams"),  0, &UVWFrameModCD, P_AUTO_CONSTRUCT + P_AUTO_UI, 0, 
 	//rollout
 	IDD_UVW_FRAME_MOD, IDS_FRAMEMOD_PARAMETERS, 0, 0, NULL, 
@@ -144,21 +148,21 @@ static ParamBlockDesc2 skpurem_param_blk ( frame_mod_params, _T("SkeletonPureMod
 		p_default,		0,
 		p_range,		0,	1,
 		p_ui,			TYPE_RADIO, 2, IDC_UVW_TYPE, IDC_VCC_TYPE,
-		end,
+		p_end,
 
 	uvw_channel,		_T("uvw_channel"),	TYPE_INT,	0,	IDS_SIMPLE,
 		p_default,		1,
 		p_range, 		1, 99, 
 		p_ui,			TYPE_SPINNER, EDITTYPE_INT, IDC_UVWCH_EDIT, IDC_UVWCH_SPIN, 1.0,
-		end,
+		p_end,
 
 	frame_node, 		_T("uvw_frame"), 		TYPE_INODE, 	0,		IDS_SIMPLE,
 		p_ui, 			TYPE_PICKNODEBUTTON, IDC_PICK_FRAME, 
 		p_sclassID,		HELPER_CLASS_ID,
 		p_classID,		UVWFRAME_CLASSID,
-		end, 
+		p_end, 
 
-	end
+	p_end
 	);
 
 /*===========================================================================*\
@@ -250,15 +254,21 @@ RefTargetHandle UVWFrameModifier::GetReference(int i)
 		default: return NULL;
 		}
 	}
+
 void UVWFrameModifier::SetReference(int i, RefTargetHandle rtarg)
 	{
 	switch (i) {
 		case 0: pblock = (IParamBlock2*)rtarg; break;
 		}
 	}
-RefResult UVWFrameModifier::NotifyRefChanged(
-		Interval changeInt, RefTargetHandle hTarget,
-		PartID& partID,  RefMessage message) 
+
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+RefResult UVWFrameModifier::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, 
+   PartID& partID, RefMessage message ) 
+#else
+RefResult UVWFrameModifier::NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget, 
+   PartID& partID, RefMessage message, BOOL propagate ) 
+#endif
 	{
 	switch (message) {
 		case REFMSG_CHANGE:
@@ -288,4 +298,3 @@ Interval UVWFrameModifier::LocalValidity(TimeValue t)
 {
 	return GetValidity(t);
 }
-
