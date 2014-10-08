@@ -5,7 +5,7 @@
  |			the UVW Frame helper object
  |			3D Studio MAX R3.0
  | 
- |  AUTH:   Diego A. Castaño
+ |  AUTH:   Diego A. CastaÃ±o
  |			Mankua
  |			Copyright(c) Mankua 2001
  |
@@ -58,8 +58,11 @@ class UVWFrameModifier : public Modifier{
 		// Plugin identification
 		void GetClassName(TSTR& s) { s= TSTR(GetString(IDS_FRAMEMOD_CLASSNAME)); }  
 		virtual Class_ID ClassID() { return PUREM_CLASSID;}		
+#if MAX_VERSION_MAJOR < 15 //Max 2013
 		TCHAR *GetObjectName() { return GetString(IDS_FRAMEMOD_CLASSNAME); }
-
+#else
+		const TCHAR *GetObjectName() { return GetString(IDS_FRAMEMOD_CLASSNAME); }
+#endif
 		// Defines the behavior for this modifier
 		// This is currently setup to be basic geometry 
 		// modification of deformable objects
@@ -79,16 +82,25 @@ class UVWFrameModifier : public Modifier{
 		// Reference support
 		int NumRefs() { return 1; }
 		RefTargetHandle GetReference(int i);
+#if MAX_VERSION_MAJOR < 14
 		void SetReference(int i, RefTargetHandle rtarg);
-
-#ifndef MAX_RELEASE_R9
-		RefTargetHandle Clone(RemapDir& remap = NoRemap());
 #else
-		RefTargetHandle Clone(RemapDir& remap = DefaultRemapDir());
+private:
+		virtual void SetReference(int i, RefTargetHandle rtarg);
+public:
 #endif
 
-		RefResult NotifyRefChanged( Interval changeInt,RefTargetHandle hTarget, 
-		   PartID& partID, RefMessage message);
+#if MAX_VERSION_MAJOR < 9
+		RefTargetHandle Clone(RemapDir& remap = NoRemap());
+#else
+		RefTargetHandle Clone(RemapDir& remap);
+#endif
+
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+		RefResult NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message );
+#else
+		RefResult NotifyRefChanged( const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate );
+#endif		
 		
 		// SubAnim support
 		int NumSubs() { return 1; }
@@ -135,4 +147,3 @@ class SkeletonPureModDlgProc : public ParamMap2UserDlgProc
 };
 
 #endif
-
